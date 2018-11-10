@@ -11,11 +11,14 @@ var orm = {
 
   // Here our ORM is creating a simple method for performing a query of the entire table.
   // We make use of the callback to ensure that data is returned only once the query is done.
-  selectAll: function(cb) {
+  selectAll: function(tableName,cb) {
     var burger = "SELECT * FROM " + tableName;
 
     connection.query(burger, function(err, result) {
 
+      if (err) {
+        throw err;
+      }
       cb(result);
 
     });
@@ -42,6 +45,10 @@ insertOne: function(todo, cb) {
       todo.burger_name, todo.devoured
     ], function(err, result) {
 
+      if (err) {
+        throw err;
+      }
+
       cb(result);
 
     });
@@ -53,6 +60,9 @@ insertOne: function(todo, cb) {
     connection.query(burger, [
       todo.burger_name, todo.id
     ], function(err, result) {
+      if (err) {
+        throw err;
+      }
 
       cb(result);
 
